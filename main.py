@@ -18,12 +18,21 @@ def menu():
         return 0
     match n:
         case 1:
+            os.system('cls')
             add_waste()
         case 2:
+            os.system('cls')
             list_waste()
+        case 3:
+            os.system('cls')
+            delete_waste()
         case 4:
+            os.system('cls')
+
+        case 5:
             sys.exit()
         case _:
+            os.system('cls')
             print("bruh, wrong action. Try again.\n")
             return 0
 
@@ -62,6 +71,7 @@ def list_waste():
     print("\nHow do you want to list your wastes?\n 'YYYY' to sort by year.\n 'MM' to sort by month.\n '0' to print all.\n")
     n = input()
     counter = 0
+    overall = 0
     if len(l) == 0:
         os.system('cls')
         print("\nNo wastes for now.\n\n")
@@ -69,21 +79,26 @@ def list_waste():
     match len(n):
         case 1:
             for waste in l:
-                print()
+                overall += waste[2]
                 for attr in waste:
-                    print(f"{obj[waste.index(attr)]} -> {attr}")        
+                    print(f"{obj[waste.index(attr)]} -> {attr}")
+                print(f"Overall sum for all is {overall}")    
         case 2:
             for waste in l:
                 if waste[3][:2] == n:
+                    overall += waste[2]
                     counter += 1
                     for attr in waste:
                         print(f"{obj[waste.index(attr)]} -> {attr}")
+                print(f"Overall sum for period is {overall}")
         case 4:
             for waste in l:
                 if waste[3][6:] ==n:
+                    overall += waste[2]
                     counter += 1
                     for attr in waste:
                         print(f"{obj[waste.index(attr)]} -> {attr}")    
+                print(f"Overall sum for period is {overall}")
         case _:
             print("Something went wrong.\n")
             return 0
@@ -91,6 +106,24 @@ def list_waste():
         print("\nNothing found.\n")
     print()
 
+def delete_waste():
+    if len(l) == 0:
+        print("No tasks at all.")
+        return 0
+    print("Enter id of waste you want to delete:\n")
+    n = input()
+    try:
+        n = int(n)
+    except ValueError:
+        os.system('cls')
+        print("Thats not id.\n")
+        return 0
+    if n > len(l):
+        print("Given id is out of range.\n")
+        return 0
+    l.pop(n-1)
+    for i in range(n - 1, len(l), 1):
+        l[i][0] -= 1
 
 while True:
     menu()
