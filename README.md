@@ -7,3 +7,5 @@ This CLI app will help you to handle your spendings.
 4. Update wastes
 5. Save into file
 6. Loading from file
+
+https://roadmap.sh/projects/expense-tracker
